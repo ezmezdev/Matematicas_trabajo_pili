@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Triángulos — guía visual</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#FBF6FF;
+  --grilla:#EAE1F9;
+  --tinta:#241B3A;
+  --suave:#6E6390;
+  --rosa:#FF2E88;
+  --turq:#00B9AC;
+  --violeta:#7C4DFF;
+  --mango:#FFAE00;
+  --naranja:#FF6B35;
+  --ok:#10B981;
+  --mal:#FF4D6D;
+  --blanco:#fff;
+  --r:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:'Nunito',system-ui,sans-serif;
+  color:var(--tinta);
+  background-color:var(--papel);
+  background-image:
+    linear-gradient(var(--grilla) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grilla) 1px, transparent 1px);
+  background-size:28px 28px;
+  line-height:1.55;
+  -webkit-text-size-adjust:100%;
+}
+h1,h2,h3{font-family:'Baloo 2',system-ui,sans-serif;line-height:1.15;margin:0}
+.num{font-family:'Space Mono',monospace}
+
+/* ---------- HERO ---------- */
+.hero{
+  max-width:900px;margin:0 auto;padding:38px 20px 10px;
+  text-align:center;position:relative;
+}
+.hero h1{
+  font-size:clamp(2.6rem,9vw,4.4rem);font-weight:800;letter-spacing:-.02em;
+  background:linear-gradient(100deg,var(--rosa),var(--violeta) 55%,var(--turq));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{margin:.5rem auto 0;max-width:34ch;color:var(--suave);font-weight:600}
+.hero-tri{display:block;margin:6px auto -6px;width:120px;height:auto}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:sticky;top:0;z-index:30;
+  background:rgba(251,246,255,.92);backdrop-filter:blur(8px);
+  border-bottom:2px solid var(--grilla);
+  padding:10px 12px;margin-top:16px;
+}
+.nav-in{max-width:960px;margin:0 auto;display:flex;gap:8px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;text-decoration:none;color:var(--tinta);
+  font-family:'Baloo 2',sans-serif;font-weight:700;font-size:.92rem;
+  background:var(--blanco);border:2px solid var(--grilla);border-radius:999px;
+  padding:7px 14px;transition:transform .12s ease,border-color .12s ease;
+}
+.chip:hover,.chip:focus-visible{transform:translateY(-2px);border-color:var(--violeta)}
+.marcador{
+  flex:0 0 auto;margin-left:auto;display:flex;align-items:center;gap:8px;
+  font-family:'Space Mono',monospace;font-size:.8rem;color:var(--suave);
+}
+.barra{width:90px;height:9px;border-radius:99px;background:var(--grilla);overflow:hidden}
+.barra i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--turq),var(--violeta));transition:width .4s ease}
+
+/* ---------- TEMA ---------- */
+main{max-width:900px;margin:0 auto;padding:24px 16px 60px}
+.tema{
+  background:var(--blanco);border-radius:var(--r);
+  border-top:9px solid var(--c);
+  box-shadow:0 10px 30px rgba(60,30,110,.09);
+  padding:22px;margin-bottom:34px;scroll-margin-top:74px;
+}
+.tema-cab{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.insignia{
+  flex:0 0 auto;width:44px;height:44px;border-radius:14px;
+  background:var(--c);color:#fff;display:grid;place-items:center;
+  font-family:'Baloo 2',sans-serif;font-weight:800;font-size:1.35rem;
+  box-shadow:0 5px 0 color-mix(in srgb,var(--c) 70%, black);
+}
+.tema h2{font-size:clamp(1.35rem,4.5vw,1.85rem);font-weight:800}
+.bajada{color:var(--suave);font-weight:600;margin:.2rem 0 18px}
+
+.regla{
+  background:color-mix(in srgb,var(--c) 9%, white);
+  border:2px dashed color-mix(in srgb,var(--c) 45%, white);
+  border-radius:16px;padding:14px 16px;margin:16px 0;text-align:center;
+}
+.regla .titulito{font-family:'Baloo 2',sans-serif;font-weight:700;color:var(--c);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em}
+.formula{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1.1rem,4.4vw,1.6rem);margin-top:6px;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center}
+.tag{color:#fff;border-radius:9px;padding:1px 10px}
+.t-rosa{background:var(--rosa)}.t-turq{background:var(--turq)}.t-viol{background:var(--violeta)}.t-mango{background:var(--mango)}.t-nar{background:var(--naranja)}
+
+.pasos{list-style:none;padding:0;margin:16px 0;display:grid;gap:10px}
+.pasos li{display:flex;gap:11px;align-items:flex-start;font-weight:600}
+.pasos b{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:color-mix(in srgb,var(--c) 16%, white);color:var(--c);display:grid;place-items:center;font-family:'Space Mono',monospace;font-size:.85rem}
+
+.lienzo{
+  width:100%;height:auto;display:block;border-radius:16px;
+  background-color:#fff;
+  background-image:linear-gradient(#F1ECFA 1px,transparent 1px),linear-gradient(90deg,#F1ECFA 1px,transparent 1px);
+  background-size:20px 20px;
+  border:2px solid var(--grilla);touch-action:none;
+}
+.pie{text-align:center;color:var(--suave);font-size:.85rem;font-weight:600;margin:8px 0 0}
+
+.lectura{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:14px 0 4px;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:clamp(1rem,4vw,1.35rem)}
+.igual{color:var(--suave)}
+.total{background:var(--tinta);color:#fff;border-radius:9px;padding:1px 12px}
+
+.controles{display:grid;gap:12px;margin:16px 0}
+.ctrl{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-weight:700}
+.ctrl span:first-child{font-family:'Baloo 2',sans-serif}
+.ctrl output{font-family:'Space Mono',monospace;font-size:.95rem;min-width:62px;text-align:right}
+input[type=range]{-webkit-appearance:none;appearance:none;height:10px;border-radius:99px;background:var(--grilla);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:var(--acc,var(--violeta));border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--acc,var(--violeta));border:3px solid #fff;cursor:pointer}
+
+.btn{
+  font-family:'Baloo 2',sans-serif;font-weight:700;font-size:1rem;
+  border:none;border-radius:14px;padding:10px 18px;cursor:pointer;
+  background:var(--c);color:#fff;box-shadow:0 4px 0 color-mix(in srgb,var(--c) 68%, black);
+  transition:transform .1s ease,box-shadow .1s ease;
+}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 color-mix(in srgb,var(--c) 68%, black)}
+.btn.ghost{background:#fff;color:var(--c);border:2px solid var(--c);box-shadow:0 4px 0 color-mix(in srgb,var(--c) 25%, white)}
+.btn.mini{font-size:.85rem;padding:7px 13px;border-radius:11px}
+.fila{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:12px}
+
+.aviso{margin-top:12px;text-align:center;font-weight:700;border-radius:12px;padding:9px 12px}
+.aviso.si{background:#E7FBF2;color:#087F5B}
+.aviso.no{background:#FFEBEF;color:#C1123C}
+
+/* ---------- EJERCICIOS ---------- */
+.ejercicios{margin-top:26px;border-top:2px dashed var(--grilla);padding-top:18px}
+.ej-cab{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.ej-cab h3{font-size:1.15rem;color:var(--c)}
+.puntaje{font-family:'Space Mono',monospace;font-size:.85rem;background:color-mix(in srgb,var(--c) 12%, white);color:var(--c);border-radius:99px;padding:4px 12px}
+.ej{
+  background:color-mix(in srgb,var(--c) 6%, white);
+  border-radius:16px;padding:14px;margin-bottom:12px;
+  display:grid;grid-template-columns:34px 1fr;gap:12px;
+}
+.ej-n{width:34px;height:34px;border-radius:11px;background:#fff;border:2px solid color-mix(in srgb,var(--c) 35%, white);color:var(--c);display:grid;place-items:center;font-family:'Space Mono',monospace;font-size:.9rem}
+.ej-q{margin:2px 0 10px;font-weight:600}
+.ej figure{margin:0 0 12px;max-width:300px}
+.ej figure svg{width:100%;height:auto;display:block}
+.resp{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.resp input[type=number]{
+  width:110px;font-family:'Space Mono',monospace;font-size:1rem;
+  padding:9px 11px;border-radius:12px;border:2px solid var(--grilla);background:#fff;color:var(--tinta);
+}
+.resp input[type=number]:focus{outline:none;border-color:var(--c)}
+.opciones{display:flex;flex-wrap:wrap;gap:8px}
+.op{
+  font-family:'Baloo 2',sans-serif;font-weight:700;cursor:pointer;
+  background:#fff;border:2px solid color-mix(in srgb,var(--c) 30%, white);
+  color:var(--tinta);border-radius:12px;padding:8px 15px;transition:transform .1s ease;
+}
+.op:hover{transform:translateY(-2px)}
+.op.bien{background:var(--ok);border-color:var(--ok);color:#fff}
+.op.mal{background:var(--mal);border-color:var(--mal);color:#fff}
+.fb{margin-top:10px;border-radius:12px;padding:10px 12px;font-weight:700;display:none}
+.fb.on{display:block}
+.fb.bien{background:#E7FBF2;color:#087F5B}
+.fb.mal{background:#FFEBEF;color:#C1123C}
+.fb .cuenta{font-family:'Space Mono',monospace;display:block;margin-top:4px;font-size:1.05rem}
+.link{background:none;border:none;color:var(--suave);font-family:'Nunito',sans-serif;font-weight:700;text-decoration:underline;cursor:pointer;font-size:.85rem;padding:4px 0}
+
+footer{text-align:center;color:var(--suave);font-weight:600;padding:0 20px 50px;font-size:.9rem}
+
+svg text{font-family:'Space Mono',monospace;font-weight:700}
+.vertice{fill:#fff;stroke:var(--tinta);stroke-width:3;cursor:grab}
+.vertice:active{cursor:grabbing}
+.vertice:focus-visible{outline:none;stroke:var(--violeta);stroke-width:5}
+:focus-visible{outline:3px solid var(--violeta);outline-offset:3px}
+
+@media (max-width:520px){
+  .tema{padding:16px}
+  .ej{grid-template-columns:28px 1fr;gap:9px;padding:12px}
+  .ej-n{width:28px;height:28px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <svg class="hero-tri" viewBox="0 0 120 90" aria-hidden="true">
+    <polygon points="60,12 108,78 12,78" fill="none" stroke="#7C4DFF" stroke-width="4" stroke-linejoin="round"/>
+    <path d="M60 12 L60 42 A30 30 0 0 1 48.5 39.7 Z" fill="#FF2E88" opacity=".85"/>
+    <path d="M108 78 L78 78 A30 30 0 0 1 93 52 Z" fill="#00B9AC" opacity=".85"/>
+    <path d="M12 78 L42 78 A30 30 0 0 0 27 52 Z" fill="#FFAE00" opacity=".85"/>
+  </svg>
+  <h1>Triángulos</h1>
+  <p>Guía visual para la prueba: tocá, arrastrá y mirá cómo funciona cada regla.</p>
+</header>
+
+<nav class="nav">
+  <div class="nav-in">
+    <a class="chip" href="#t1">1 · Interiores</a>
+    <a class="chip" href="#t2">2 · Exteriores</a>
+    <a class="chip" href="#t3">3 · Propiedad triangular</a>
+    <a class="chip" href="#t4">4 · Construcción</a>
+    <a class="chip" href="#t5">5 · Práctica</a>
+    <div class="marcador"><span id="pts">0/15</span><span class="barra"><i id="barra"></i></span></div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ============ TEMA 1 ============ -->
+<section class="tema" id="t1" style="--c:var(--rosa)">
+  <div class="tema-cab"><div class="insignia">1</div><h2>Los ángulos interiores</h2></div>
+  <p class="bajada">Los 3 ángulos de adentro siempre suman lo mismo. Siempre.</p>
+
+  <div class="regla">
+    <div class="titulito">La regla de oro</div>
+    <div class="formula"><span class="tag t-rosa">Â</span> + <span class="tag t-turq">B̂</span> + <span class="tag t-mango">Ĉ</span> = <span class="total">180°</span></div>
+  </div>
+
+  <svg class="lienzo" id="w1" viewBox="0 0 420 320" role="img" aria-label="Triángulo con vértices que se pueden arrastrar">
+    <g id="w1-figura">
+      <path id="wA" fill="#FF2E88" opacity=".8"/>
+      <path id="wB" fill="#00B9AC" opacity=".8"/>
+      <path id="wC" fill="#FFAE00" opacity=".8"/>
+      <polygon id="w1-tri" fill="none" stroke="#241B3A" stroke-width="4" stroke-linejoin="round"/>
+      <text id="tA" text-anchor="middle" font-size="17" fill="#241B3A"></text>
+      <text id="tB" text-anchor="middle" font-size="17" fill="#241B3A"></text>
+      <text id="tC" text-anchor="middle" font-size="17" fill="#241B3A"></text>
+      <circle class="vertice" id="v0" r="11" tabindex="0" role="slider" aria-label="Vértice A"></circle>
+      <circle class="vertice" id="v1" r="11" tabindex="0" role="slider" aria-label="Vértice B"></circle>
+      <circle class="vertice" id="v2" r="11" tabindex="0" role="slider" aria-label="Vértice C"></circle>
+    </g>
+    <g id="w1-anim" style="display:none">
+      <line x1="90" y1="292" x2="330" y2="292" stroke="#241B3A" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="210" cy="292" r="5" fill="#241B3A"/>
+      <text x="210" y="316" text-anchor="middle" font-size="16" fill="#241B3A">media vuelta = 180°</text>
+    </g>
+  </svg>
+  <p class="pie">Arrastrá los puntos blancos (o tocalos y usá las flechas del teclado).</p>
+
+  <div class="lectura">
+    <span class="tag t-rosa" id="lA">60°</span><span class="igual">+</span>
+    <span class="tag t-turq" id="lB">60°</span><span class="igual">+</span>
+    <span class="tag t-mango" id="lC">60°</span><span class="igual">=</span>
+    <span class="total">180°</span>
+  </div>
+
+  <div class="fila">
+    <button class="btn" id="b1juntar">Juntá los 3 ángulos</button>
+    <button class="btn ghost" id="b1reset">Volver al triángulo</button>
+  </div>
+
+  <ul class="pasos">
+    <li><b>1</b><span>Movelo todo lo que quieras: la suma <b>nunca</b> cambia.</span></li>
+    <li><b>2</b><span>Si juntás los 3 ángulos, forman una <b>línea recta</b>. Por eso son 180°.</span></li>
+    <li><b>3</b><span>Si te dan 2 ángulos, el que falta sale <b>restando</b>: 180° − uno − el otro.</span></li>
+  </ul>
+
+  <div class="ejercicios">
+    <div class="ej-cab"><h3>Practicá — 3 ejercicios</h3>
+      <span class="puntaje" data-p="t1">0/3</span>
+      <button class="btn mini ghost" data-nuevo="t1">Otros 3 ejercicios</button></div>
+    <div id="ej-t1"></div>
+  </div>
+</section>
+
+<!-- ============ TEMA 2 ============ -->
+<section class="tema" id="t2" style="--c:var(--violeta)">
+  <div class="tema-cab"><div class="insignia">2</div><h2>Los ángulos exteriores</h2></div>
+  <p class="bajada">Estirás un lado hacia afuera y aparece un ángulo nuevo, pegado al de adentro.</p>
+
+  <div class="regla">
+    <div class="titulito">Dos reglas fáciles</div>
+    <div class="formula"><span class="tag t-turq">interior</span> + <span class="tag t-viol">exterior</span> = <span class="total">180°</span></div>
+    <div class="formula" style="margin-top:8px"><span class="tag t-viol">exterior</span> = <span class="tag t-rosa">Â</span> + <span class="tag t-mango">Ĉ</span> <span style="font-size:.8em;color:var(--suave)">(los 2 de lejos)</span></div>
+  </div>
+
+  <svg class="lienzo" id="w2" viewBox="0 0 420 280" role="img" aria-label="Triángulo con un lado estirado que muestra el ángulo exterior"></svg>
+
+  <div class="controles">
+    <label class="ctrl" style="--acc:var(--rosa)"><span>Â</span><input type="range" id="s2a" min="25" max="110" value="55"><output id="o2a">55°</output></label>
+    <label class="ctrl" style="--acc:var(--turq)"><span>B̂</span><input type="range" id="s2b" min="25" max="110" value="70"><output id="o2b">70°</output></label>
+  </div>
+
+  <div class="lectura">
+    <span class="tag t-viol" id="l2e">110°</span><span class="igual">=</span>
+    <span class="tag t-rosa" id="l2a">55°</span><span class="igual">+</span>
+    <span class="tag t-mango" id="l2c">55°</span>
+  </div>
+  <p class="pie" id="p2">Y también: <span class="num" id="l2suma"></span></p>
+
+  <ul class="pasos">
+    <li><b>1</b><span>El exterior y su interior son <b>vecinos</b> y juntos hacen una recta: 180°.</span></li>
+    <li><b>2</b><span>Atajo: el exterior es igual a la <b>suma de los otros dos</b> ángulos de adentro.</span></li>
+    <li><b>3</b><span>Los <b>3 ángulos exteriores</b> de un triángulo suman <b>360°</b> (una vuelta entera).</span></li>
+  </ul>
+
+  <div class="ejercicios">
+    <div class="ej-cab"><h3>Practicá — 3 ejercicios</h3>
+      <span class="puntaje" data-p="t2">0/3</span>
+      <button class="btn mini ghost" data-nuevo="t2">Otros 3 ejercicios</button></div>
+    <div id="ej-t2"></div>
+  </div>
+</section>
+
+<!-- ============ TEMA 3 ============ -->
+<section class="tema" id="t3" style="--c:var(--turq)">
+  <div class="tema-cab"><div class="insignia">3</div><h2>Propiedad triangular</h2></div>
+  <p class="bajada">No cualquier trío de medidas arma un triángulo. Los lados tienen que "llegar".</p>
+
+  <div class="regla">
+    <div class="titulito">La regla de oro</div>
+    <div class="formula"><span class="tag t-turq">lado más largo</span> &lt; suma de los otros dos</div>
+  </div>
+
+  <svg class="lienzo" id="w3" viewBox="0 0 420 250" role="img" aria-label="Tres lados que intentan formar un triángulo"></svg>
+
+  <div class="controles">
+    <label class="ctrl" style="--acc:var(--rosa)"><span>lado a</span><input type="range" id="s3a" min="1" max="12" value="6"><output id="o3a">6 cm</output></label>
+    <label class="ctrl" style="--acc:var(--turq)"><span>lado b</span><input type="range" id="s3b" min="1" max="12" value="5"><output id="o3b">5 cm</output></label>
+    <label class="ctrl" style="--acc:var(--mango)"><span>lado c</span><input type="range" id="s3c" min="1" max="12" value="4"><output id="o3c">4 cm</output></label>
+  </div>
+  <div class="aviso si" id="a3">¡Cierra! Es un triángulo posible.</div>
+
+  <ul class="pasos">
+    <li><b>1</b><span>Mirá el lado <b>más largo</b> de los tres.</span></li>
+    <li><b>2</b><span>Sumá los otros dos.</span></li>
+    <li><b>3</b><span>Si esa suma es <b>mayor</b> que el más largo → se puede. Si no, los lados no se tocan.</span></li>
+  </ul>
+
+  <div class="ejercicios">
+    <div class="ej-cab"><h3>Practicá — 3 ejercicios</h3>
+      <span class="puntaje" data-p="t3">0/3</span>
+      <button class="btn mini ghost" data-nuevo="t3">Otros 3 ejercicios</button></div>
+    <div id="ej-t3"></div>
+  </div>
+</section>
+
+<!-- ============ TEMA 4 ============ -->
+<section class="tema" id="t4" style="--c:var(--mango)">
+  <div class="tema-cab"><div class="insignia">4</div><h2>Construcción con regla y compás</h2></div>
+  <p class="bajada">Te dan 3 medidas de lados. Se dibuja siempre igual, con estos 4 pasos.</p>
+
+  <svg class="lienzo" id="w4" viewBox="0 0 460 300" role="img" aria-label="Construcción paso a paso de un triángulo"></svg>
+  <p class="pie" id="p4">Elegí las medidas y apretá "Paso a paso".</p>
+
+  <div class="controles">
+    <label class="ctrl" style="--acc:var(--mango)"><span>lado AB</span><input type="range" id="s4c" min="3" max="9" value="7"><output id="o4c">7 cm</output></label>
+    <label class="ctrl" style="--acc:var(--rosa)"><span>lado AC</span><input type="range" id="s4b" min="3" max="9" value="5"><output id="o4b">5 cm</output></label>
+    <label class="ctrl" style="--acc:var(--turq)"><span>lado BC</span><input type="range" id="s4a" min="3" max="9" value="4"><output id="o4a">4 cm</output></label>
+  </div>
+
+  <div class="fila">
+    <button class="btn" id="b4play">Paso a paso ▸</button>
+    <button class="btn ghost" id="b4reset">Empezar de nuevo</button>
+  </div>
+
+  <ul class="pasos">
+    <li><b>1</b><span>Con la <b>regla</b>: dibujo el lado más largo (AB) y marco A y B.</span></li>
+    <li><b>2</b><span>Abro el <b>compás</b> la medida de <b>AC</b>, pincho en <b>A</b> y trazo un arco.</span></li>
+    <li><b>3</b><span>Abro el compás la medida de <b>BC</b>, pincho en <b>B</b> y trazo otro arco.</span></li>
+    <li><b>4</b><span>Donde <b>se cruzan los arcos</b> está el vértice <b>C</b>. Uno con la regla y listo.</span></li>
+  </ul>
+
+  <div class="ejercicios">
+    <div class="ej-cab"><h3>Practicá — 3 ejercicios</h3>
+      <span class="puntaje" data-p="t4">0/3</span>
+      <button class="btn mini ghost" data-nuevo="t4">Otros 3 ejercicios</button></div>
+    <div id="ej-t4"></div>
+  </div>
+</section>
+
+<!-- ============ TEMA 5 ============ -->
+<section class="tema" id="t5" style="--c:var(--naranja)">
+  <div class="tema-cab"><div class="insignia">5</div><h2>Cálculo de ángulos — todo junto</h2></div>
+  <p class="bajada">Acá se mezcla todo. Antes de calcular, preguntate: ¿es de adentro o de afuera?</p>
+
+  <div class="regla">
+    <div class="titulito">Chuleta</div>
+    <div class="formula" style="font-size:1.05rem;flex-direction:column;gap:8px">
+      <span>Falta un interior → <span class="tag t-nar">180° − los otros dos</span></span>
+      <span>Piden el exterior → <span class="tag t-nar">suma de los dos de lejos</span></span>
+      <span>Te dan el exterior → <span class="tag t-nar">interior = 180° − exterior</span></span>
+    </div>
+  </div>
+
+  <div class="ejercicios" style="border-top:none;padding-top:4px">
+    <div class="ej-cab"><h3>Practicá — 3 ejercicios mezclados</h3>
+      <span class="puntaje" data-p="t5">0/3</span>
+      <button class="btn mini ghost" data-nuevo="t5">Otros 3 ejercicios</button></div>
+    <div id="ej-t5"></div>
+  </div>
+</section>
+
+</main>
+
+<footer>Hecho para estudiar tranquila. Podés repetir los ejercicios todas las veces que quieras 💜</footer>
+
+<script>
+/* ================= utilidades ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const rnd=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const RAD=Math.PI/180;
+const menos=!!(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+
+function norm(v){const m=Math.hypot(v.x,v.y)||1;return{x:v.x/m,y:v.y/m};}
+function ang(P,Q,R){
+  const u={x:Q.x-P.x,y:Q.y-P.y},v={x:R.x-P.x,y:R.y-P.y};
+  return Math.abs(Math.atan2(u.x*v.y-u.y*v.x,u.x*v.x+u.y*v.y))/RAD;
+}
+function arco(P,Q,R,r){
+  const u=norm({x:Q.x-P.x,y:Q.y-P.y}),v=norm({x:R.x-P.x,y:R.y-P.y});
+  const sw=(u.x*v.y-u.y*v.x)>0?1:0;
+  const s={x:P.x+u.x*r,y:P.y+u.y*r},e={x:P.x+v.x*r,y:P.y+v.y*r};
+  return `M ${P.x.toFixed(1)} ${P.y.toFixed(1)} L ${s.x.toFixed(1)} ${s.y.toFixed(1)} A ${r} ${r} 0 0 ${sw} ${e.x.toFixed(1)} ${e.y.toFixed(1)} Z`;
+}
+function bisec(P,Q,R,d){
+  const u=norm({x:Q.x-P.x,y:Q.y-P.y}),v=norm({x:R.x-P.x,y:R.y-P.y});
+  const b=norm({x:u.x+v.x,y:u.y+v.y});
+  return{x:P.x+b.x*d,y:P.y+b.y*d};
+}
+function triDeAngulos(al,be,A,B){
+  const ga=180-al-be, c=Math.hypot(B.x-A.x,B.y-A.y);
+  const AC=c*Math.sin(be*RAD)/Math.sin(ga*RAD);
+  return{x:A.x+AC*Math.cos(al*RAD),y:A.y-AC*Math.sin(al*RAD)};
+}
+function encajar(pts,W,H,pad){
+  const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);
+  const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const s=Math.min((W-2*pad)/Math.max(x1-x0,1),(H-2*pad)/Math.max(y1-y0,1));
+  const ox=(W-(x1-x0)*s)/2-x0*s, oy=(H-(y1-y0)*s)/2-y0*s;
+  return pts.map(p=>({x:p.x*s+ox,y:p.y*s+oy}));
+}
+
+/* ================= figuras para ejercicios ================= */
+const COL=['#FF2E88','#00B9AC','#FFAE00'];
+
+function figInterior(al,be,et){
+  const ga=180-al-be;
+  let A={x:0,y:0},B={x:200,y:0},C=triDeAngulos(al,be,A,B);
+  [A,B,C]=encajar([A,B,C],290,175,44);
+  const P=[A,B,C],N=['A','B','C'];
+  let s=`<svg viewBox="0 0 290 175">`;
+  for(let i=0;i<3;i++){
+    const p=P[i],q=P[(i+1)%3],r=P[(i+2)%3];
+    s+=`<path d="${arco(p,q,r,26)}" fill="${COL[i]}" opacity=".75"/>`;
+  }
+  s+=`<polygon points="${P.map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ')}" fill="none" stroke="#241B3A" stroke-width="3.5" stroke-linejoin="round"/>`;
+  for(let i=0;i<3;i++){
+    const p=P[i],q=P[(i+1)%3],r=P[(i+2)%3];
+    const t=bisec(p,q,r,44), u=bisec(p,q,r,-19);
+    s+=`<text x="${t.x.toFixed(1)}" y="${(t.y+5).toFixed(1)}" text-anchor="middle" font-size="15" fill="#241B3A">${et[i]}</text>`;
+    s+=`<text x="${u.x.toFixed(1)}" y="${(u.y+5).toFixed(1)}" text-anchor="middle" font-size="13" fill="#6E6390">${N[i]}</text>`;
+  }
+  return s+`</svg>`;
+}
+
+function figExterior(al,be,et,extEt){
+  const ga=180-al-be;
+  let A={x:0,y:0},B={x:200,y:0},C=triDeAngulos(al,be,A,B),D={x:280,y:0};
+  let P=encajar([A,B,C,D],290,175,42);
+  const [a,b,c,d]=P;
+  let s=`<svg viewBox="0 0 290 175">`;
+  s+=`<path d="${arco(b,c,d,26)}" fill="#7C4DFF" opacity=".8"/>`;
+  s+=`<path d="${arco(a,b,c,24)}" fill="${COL[0]}" opacity=".75"/>`;
+  s+=`<path d="${arco(c,a,b,24)}" fill="${COL[2]}" opacity=".75"/>`;
+  s+=`<line x1="${b.x}" y1="${b.y}" x2="${d.x}" y2="${d.y}" stroke="#241B3A" stroke-width="3" stroke-dasharray="6 5"/>`;
+  s+=`<polygon points="${[a,b,c].map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ')}" fill="none" stroke="#241B3A" stroke-width="3.5" stroke-linejoin="round"/>`;
+  const eT=bisec(b,c,d,44);
+  s+=`<text x="${eT.x.toFixed(1)}" y="${(eT.y+5).toFixed(1)}" text-anchor="middle" font-size="15" fill="#241B3A">${extEt}</text>`;
+  const t1=bisec(a,b,c,42),t3=bisec(c,a,b,42);
+  s+=`<text x="${t1.x.toFixed(1)}" y="${(t1.y+5).toFixed(1)}" text-anchor="middle" font-size="15" fill="#241B3A">${et[0]}</text>`;
+  s+=`<text x="${t3.x.toFixed(1)}" y="${(t3.y+5).toFixed(1)}" text-anchor="middle" font-size="15" fill="#241B3A">${et[2]}</text>`;
+  s+=`<text x="${(a.x-14).toFixed(1)}" y="${(a.y+16).toFixed(1)}" text-anchor="middle" font-size="13" fill="#6E6390">A</text>`;
+  s+=`<text x="${(b.x).toFixed(1)}" y="${(b.y+20).toFixed(1)}" text-anchor="middle" font-size="13" fill="#6E6390">B</text>`;
+  s+=`<text x="${(c.x).toFixed(1)}" y="${(c.y-10).toFixed(1)}" text-anchor="middle" font-size="13" fill="#6E6390">C</text>`;
+  return s+`</svg>`;
+}
+
+function figLados(L){
+  const max=Math.max(...L), W=290, esc=(W-90)/max;
+  let s=`<svg viewBox="0 0 290 130">`;
+  L.forEach((v,i)=>{
+    const y=28+i*36;
+    s+=`<rect x="14" y="${y-9}" width="${(v*esc).toFixed(1)}" height="18" rx="9" fill="${COL[i]}" opacity=".9"/>`;
+    s+=`<text x="${(20+v*esc).toFixed(1)}" y="${y+6}" font-size="14" fill="#241B3A">${v} cm</text>`;
+  });
+  return s+`</svg>`;
+}
+
+/* ================= marcador global ================= */
+const okTema={t1:0,t2:0,t3:0,t4:0,t5:0};
+function refrescarMarcador(){
+  const total=Object.values(okTema).reduce((a,b)=>a+b,0);
+  $('#pts').textContent=total+'/15';
+  $('#barra').style.width=(total/15*100)+'%';
+}
+function sumarPunto(tema){okTema[tema]++;refrescarMarcador();}
+
+/* ================= motor de ejercicios ================= */
+function crearEjercicio(ex,n,estado){
+  const cont=document.createElement('div');cont.className='ej';
+  const cuerpo=document.createElement('div');
+  cont.innerHTML=`<div class="ej-n">${n}</div>`;
+  cuerpo.innerHTML=`<p class="ej-q">${ex.q}</p>`+(ex.fig?`<figure>${ex.fig}</figure>`:'');
+
+  const zona=document.createElement('div');zona.className='resp';
+  const fb=document.createElement('div');fb.className='fb';
+  let intentos=0, cerrado=false;
+
+  function bien(){
+    if(cerrado)return; cerrado=true; intentos++;
+    fb.className='fb on bien';
+    fb.innerHTML=`¡Muy bien! <span class="cuenta">${ex.explica}</span>`;
+    estado.ok++; estado.badge.textContent=estado.ok+'/3'; sumarPunto(estado.tema);
+    zona.querySelectorAll('input,button').forEach(e=>e.disabled=true);
+  }
+  function mal(){
+    intentos++;
+    if(intentos>=2){
+      cerrado=true;
+      fb.className='fb on mal';
+      fb.innerHTML=`Casi. Mirá cómo se hace: <span class="cuenta">${ex.explica}</span>`;
+      zona.querySelectorAll('input,button').forEach(e=>e.disabled=true);
+    }else{
+      fb.className='fb on mal';
+      fb.innerHTML=`Todavía no. Pista: ${ex.pista}`;
+    }
+  }
+
+  if(ex.tipo==='num'){
+    const inp=document.createElement('input');
+    inp.type='number';inp.placeholder='tu respuesta';inp.setAttribute('aria-label','Respuesta');
+    const b=document.createElement('button');b.className='btn mini';b.textContent='Comprobar';
+    const comprobar=()=>{
+      if(cerrado||inp.value==='')return;
+      Math.abs(parseFloat(inp.value)-ex.res)<0.01?bien():mal();
+    };
+    b.addEventListener('click',comprobar);
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')comprobar();});
+    zona.append(inp,b);
+    if(ex.unidad){const u=document.createElement('span');u.style.fontWeight='700';u.textContent=ex.unidad;zona.insertBefore(u,b);}
+  }else{
+    const g=document.createElement('div');g.className='opciones';
+    ex.ops.forEach((txt,i)=>{
+      const b=document.createElement('button');b.className='op';b.textContent=txt;
+      b.addEventListener('click',()=>{
+        if(cerrado)return;
+        if(i===ex.res){b.classList.add('bien');bien();}
+        else{b.classList.add('mal');mal();}
+      });
+      g.appendChild(b);
+    });
+    zona.appendChild(g);
+  }
+
+  const ver=document.createElement('button');
+  ver.className='link';ver.textContent='Ver cómo se resuelve';
+  ver.addEventListener('click',()=>{
+    if(cerrado)return;cerrado=true;
+    fb.className='fb on mal';fb.innerHTML=`Se resuelve así: <span class="cuenta">${ex.explica}</span>`;
+    zona.querySelectorAll('input,button').forEach(e=>e.disabled=true);
+  });
+
+  cuerpo.append(zona,fb,ver);
+  cont.appendChild(cuerpo);
+  return cont;
+}
+
+const generadores={};
+function pintar(tema){
+  const caja=$('#ej-'+tema);
+  const badge=$(`.puntaje[data-p="${tema}"]`);
+  caja.innerHTML='';badge.textContent='0/3';
+  okTema[tema]=0;refrescarMarcador();
+  const estado={ok:0,badge,tema};
+  for(let i=0;i<3;i++)caja.appendChild(crearEjercicio(generadores[tema](),i+1,estado));
+}
+$$('[data-nuevo]').forEach(b=>b.addEventListener('click',()=>pintar(b.dataset.nuevo)));
+
+/* ================= TEMA 1: triángulo arrastrable ================= */
+(function(){
+  const svg=$('#w1');
+  let P=[{x:110,y:225},{x:320,y:225},{x:215,y:70}];
+  const V=[$('#v0'),$('#v1'),$('#v2')];
+  const W=[$('#wA'),$('#wB'),$('#wC')];
+  const T=[$('#tA'),$('#tB'),$('#tC')];
+  const L=[$('#lA'),$('#lB'),$('#lC')];
+  const NOM=['A','B','C'];
+
+  function angulos(){return [0,1,2].map(i=>ang(P[i],P[(i+1)%3],P[(i+2)%3]));}
+  function pintarFig(){
+    const a=angulos();
+    $('#w1-tri').setAttribute('points',P.map(p=>p.x+','+p.y).join(' '));
+    for(let i=0;i<3;i++){
+      W[i].setAttribute('d',arco(P[i],P[(i+1)%3],P[(i+2)%3],36));
+      V[i].setAttribute('cx',P[i].x);V[i].setAttribute('cy',P[i].y);
+      const t=bisec(P[i],P[(i+1)%3],P[(i+2)%3],58);
+      T[i].setAttribute('x',t.x);T[i].setAttribute('y',t.y+6);
+      T[i].textContent=Math.round(a[i])+'°';
+      L[i].textContent=Math.round(a[i])+'°';
+      V[i].setAttribute('aria-valuetext',NOM[i]+': '+Math.round(a[i])+' grados');
+    }
+  }
+  function valido(p){
+    return [0,1,2].every(i=>{
+      const q=p[i],r=p[(i+1)%3],s=p[(i+2)%3];
+      return ang(q,r,s)>17;
+    });
+  }
+  function mover(i,x,y){
+    const n=P.map(p=>({...p}));
+    n[i]={x:Math.max(40,Math.min(380,x)),y:Math.max(45,Math.min(235,y))};
+    if(valido(n)){P=n;pintarFig();}
+  }
+  function aSVG(e){
+    const m=svg.getScreenCTM().inverse();
+    const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;
+    return p.matrixTransform(m);
+  }
+  V.forEach((v,i)=>{
+    v.addEventListener('pointerdown',e=>{v.setPointerCapture(e.pointerId);v.dataset.drag='1';e.preventDefault();});
+    v.addEventListener('pointermove',e=>{if(v.dataset.drag==='1'){const p=aSVG(e);mover(i,p.x,p.y);}});
+    ['pointerup','pointercancel'].forEach(ev=>v.addEventListener(ev,()=>v.dataset.drag='0'));
+    v.addEventListener('keydown',e=>{
+      const d={ArrowUp:[0,-6],ArrowDown:[0,6],ArrowLeft:[-6,0],ArrowRight:[6,0]}[e.key];
+      if(d){e.preventDefault();mover(i,P[i].x+d[0],P[i].y+d[1]);}
+    });
+  });
+
+  /* animación: juntar los tres ángulos sobre una recta */
+  const gAnim=$('#w1-anim'), gFig=$('#w1-figura');
+  let animando=false;
+  $('#b1juntar').addEventListener('click',()=>{
+    if(animando)return;animando=true;
+    $$('.copia',gAnim).forEach(e=>e.remove());
+    gAnim.style.display='';
+    const O={x:210,y:292}, a=angulos();
+    const datos=[];
+    for(let i=0;i<3;i++){
+      let u=norm({x:P[(i+1)%3].x-P[i].x,y:P[(i+1)%3].y-P[i].y});
+      let v=norm({x:P[(i+2)%3].x-P[i].x,y:P[(i+2)%3].y-P[i].y});
+      if((u.x*v.y-u.y*v.x)<0){const t=u;u=v;v=t;}
+      const ini=Math.atan2(u.y,u.x)/RAD;
+      const c=W[i].cloneNode(true);c.removeAttribute('id');c.classList.add('copia');
+      c.setAttribute('opacity','.85');gAnim.appendChild(c);
+      datos.push({el:c,P:P[i],ini,ang:a[i]});
+    }
+    let acum=180;
+    datos.forEach(d=>{d.destino=acum-d.ini;acum+=d.ang;});
+    const t0=performance.now(), dur=menos?1:1100;
+    (function paso(t){
+      const k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);
+      datos.forEach(d=>{
+        const tx=(O.x-d.P.x)*e, ty=(O.y-d.P.y)*e, rot=d.destino*e;
+        d.el.setAttribute('transform',`translate(${tx.toFixed(2)} ${ty.toFixed(2)}) rotate(${rot.toFixed(2)} ${d.P.x} ${d.P.y})`);
+      });
+      gFig.style.opacity=(1-0.72*e).toFixed(2);
+      if(k<1)requestAnimationFrame(paso);else animando=false;
+    })(t0);
+  });
+  $('#b1reset').addEventListener('click',()=>{
+    gAnim.style.display='none';gFig.style.opacity='1';
+    $$('.copia',gAnim).forEach(e=>e.remove());animando=false;
+  });
+
+  pintarFig();
+})();
+
+generadores.t1=function(){
+  const t=rnd(1,3);
+  if(t===1){
+    const al=rnd(30,95), be=rnd(30,Math.min(95,145-al)), ga=180-al-be;
+    return{q:`En el triángulo ABC, <b>Â = ${al}°</b> y <b>B̂ = ${be}°</b>. ¿Cuánto mide <b>Ĉ</b>?`,
+      fig:figInterior(al,be,[al+'°',be+'°','?']),tipo:'num',unidad:'°',res:ga,
+      pista:'Los tres suman 180°. Restale a 180 los dos que ya tenés.',
+      explica:`180° − ${al}° − ${be}° = ${ga}°`};
+  }
+  if(t===2){
+    const ig=rnd(30,74), dif=180-2*ig;
+    return{q:`Un triángulo <b>isósceles</b> tiene dos ángulos iguales de <b>${ig}°</b>. ¿Cuánto mide el tercero?`,
+      fig:figInterior(ig,ig,[ig+'°',ig+'°','?']),tipo:'num',unidad:'°',res:dif,
+      pista:`Sumá los dos iguales (${ig}° + ${ig}°) y restale eso a 180°.`,
+      explica:`180° − ${ig}° − ${ig}° = ${dif}°`};
+  }
+  const ok=(()=>{const a=rnd(30,90),b=rnd(30,Math.min(100,145-a));return[a,b,180-a-b];})();
+  const malos=[];
+  while(malos.length<2){
+    const a=rnd(30,90),b=rnd(30,90),c=rnd(30,90);
+    if(a+b+c!==180)malos.push([a,b,c]);
+  }
+  const ops=[ok,...malos].sort(()=>Math.random()-0.5);
+  return{q:'¿Cuál de estos tríos <b>puede ser</b> los tres ángulos de un triángulo?',
+    tipo:'op',ops:ops.map(o=>o.join('° , ')+'°'),res:ops.findIndex(o=>o===ok),
+    pista:'Sumá los tres. Solo sirve el que da 180°.',
+    explica:`${ok[0]}° + ${ok[1]}° + ${ok[2]}° = 180° ✔`};
+};
+
+/* ================= TEMA 2: exteriores ================= */
+(function(){
+  const svg=$('#w2'),sa=$('#s2a'),sb=$('#s2b');
+  function dibujar(){
+    let al=+sa.value, be=+sb.value;
+    if(al+be>155){be=155-al;sb.value=be;}
+    const ga=180-al-be;
+    $('#o2a').textContent=al+'°';$('#o2b').textContent=be+'°';
+    let A={x:0,y:0},B={x:200,y:0},C=triDeAngulos(al,be,A,B),D={x:290,y:0};
+    const [a,b,c,d]=encajar([A,B,C,D],420,280,54);
+    const ext=180-be;
+    svg.innerHTML=
+      `<path d="${arco(b,c,d,44)}" fill="#7C4DFF" opacity=".8"/>`+
+      `<path d="${arco(b,a,c,30)}" fill="#00B9AC" opacity=".8"/>`+
+      `<path d="${arco(a,b,c,30)}" fill="#FF2E88" opacity=".8"/>`+
+      `<path d="${arco(c,a,b,30)}" fill="#FFAE00" opacity=".8"/>`+
+      `<line x1="${b.x}" y1="${b.y}" x2="${d.x}" y2="${d.y}" stroke="#241B3A" stroke-width="3.5" stroke-dasharray="8 6" stroke-linecap="round"/>`+
+      `<polygon points="${[a,b,c].map(p=>p.x.toFixed(1)+','+p.y.toFixed(1)).join(' ')}" fill="none" stroke="#241B3A" stroke-width="4" stroke-linejoin="round"/>`+
+      txt(bisec(b,c,d,66),Math.round(ext)+'°',16)+
+      txt(bisec(b,a,c,50),be+'°',15)+
+      txt(bisec(a,b,c,50),al+'°',15)+
+      txt(bisec(c,a,b,50),Math.round(ga)+'°',15)+
+      txt({x:a.x-16,y:a.y+18},'A',13,'#6E6390')+
+      txt({x:b.x-4,y:b.y+24},'B',13,'#6E6390')+
+      txt({x:c.x,y:c.y-14},'C',13,'#6E6390')+
+      txt({x:d.x+2,y:d.y+20},'',13,'#6E6390');
+    $('#l2e').textContent=Math.round(ext)+'°';
+    $('#l2a').textContent=al+'°';
+    $('#l2c').textContent=Math.round(ga)+'°';
+    $('#l2suma').textContent=`${be}° (interior) + ${Math.round(ext)}° (exterior) = 180°`;
+  }
+  function txt(p,s,size,fill){return `<text x="${p.x.toFixed(1)}" y="${(p.y+5).toFixed(1)}" text-anchor="middle" font-size="${size}" fill="${fill||'#241B3A'}">${s}</text>`;}
+  sa.addEventListener('input',dibujar);sb.addEventListener('input',dibujar);
+  dibujar();
+})();
+
+generadores.t2=function(){
+  const t=rnd(1,4);
+  if(t===1){
+    const al=rnd(35,80),be=rnd(35,80),ga=180-al-be,ext=al+ga;
+    return{q:`En el triángulo, <b>Â = ${al}°</b> y <b>Ĉ = ${ga}°</b>. ¿Cuánto mide el <b>ángulo exterior en B</b>?`,
+      fig:figExterior(al,be,[al+'°','',ga+'°'],'?'),tipo:'num',unidad:'°',res:ext,
+      pista:'El exterior es igual a la suma de los dos interiores que están lejos de él.',
+      explica:`${al}° + ${ga}° = ${ext}°`};
+  }
+  if(t===2){
+    const be=rnd(40,120),ext=180-be, al=rnd(30,Math.max(31,ext-30)), ga=180-al-be;
+    return{q:`El <b>ángulo exterior en B</b> mide <b>${ext}°</b>. ¿Cuánto mide el ángulo <b>interior B̂</b>?`,
+      fig:figExterior(al,be,['','',''],ext+'°'),tipo:'num',unidad:'°',res:be,
+      pista:'El interior y su exterior son vecinos: juntos hacen 180°.',
+      explica:`180° − ${ext}° = ${be}°`};
+  }
+  if(t===3){
+    const al=rnd(35,80),ga=rnd(35,80),ext=al+ga,be=180-al-ga;
+    return{q:`El <b>ángulo exterior en B</b> mide <b>${ext}°</b> y <b>Â = ${al}°</b>. ¿Cuánto mide <b>Ĉ</b>?`,
+      fig:figExterior(al,be,[al+'°','','?'],ext+'°'),tipo:'num',unidad:'°',res:ga,
+      pista:'El exterior es Â + Ĉ. Si conocés el exterior y Â, restá.',
+      explica:`${ext}° − ${al}° = ${ga}°`};
+  }
+  const e1=rnd(95,140),e2=rnd(95,Math.min(140,265-e1)),e3=360-e1-e2;
+  return{q:`Dos ángulos exteriores de un triángulo miden <b>${e1}°</b> y <b>${e2}°</b>. ¿Cuánto mide el tercero?`,
+    tipo:'num',unidad:'°',res:e3,
+    pista:'Los tres ángulos exteriores suman 360°, una vuelta completa.',
+    explica:`360° − ${e1}° − ${e2}° = ${e3}°`};
+};
+
+/* ================= TEMA 3: propiedad triangular ================= */
+(function(){
+  const svg=$('#w3'),S=[$('#s3a'),$('#s3b'),$('#s3c')],O=[$('#o3a'),$('#o3b'),$('#o3c')],av=$('#a3');
+  function dibujar(){
+    const L=S.map(s=>+s.value);
+    O.forEach((o,i)=>o.textContent=L[i]+' cm');
+    const orden=[...L].map((v,i)=>({v,i})).sort((x,y)=>y.v-x.v);
+    const base=orden[0], p=orden[1], q=orden[2];
+    const cierra=p.v+q.v>base.v;
+    let alto=0;
+    if(cierra){
+      const xu=(base.v*base.v+p.v*p.v-q.v*q.v)/(2*base.v);
+      alto=Math.sqrt(Math.max(0.1,p.v*p.v-xu*xu));
+    }
+    const esc=Math.min(24,300/base.v,cierra?135/alto:99);
+    const A={x:210-base.v*esc/2,y:190}, B={x:210+base.v*esc/2,y:190};
+    let s=`<line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}" stroke="${COL[base.i]}" stroke-width="9" stroke-linecap="round"/>`;
+    s+=`<text x="210" y="215" text-anchor="middle" font-size="15" fill="#241B3A">${base.v} cm</text>`;
+    if(cierra){
+      const bl=p.v*esc, ql=q.v*esc, c=base.v*esc;
+      const x=(c*c+bl*bl-ql*ql)/(2*c), y=Math.sqrt(Math.max(0,bl*bl-x*x));
+      const C={x:A.x+x,y:A.y-y};
+      s+=`<line x1="${A.x}" y1="${A.y}" x2="${C.x.toFixed(1)}" y2="${C.y.toFixed(1)}" stroke="${COL[p.i]}" stroke-width="9" stroke-linecap="round"/>`;
+      s+=`<line x1="${B.x}" y1="${B.y}" x2="${C.x.toFixed(1)}" y2="${C.y.toFixed(1)}" stroke="${COL[q.i]}" stroke-width="9" stroke-linecap="round"/>`;
+      s+=`<circle cx="${C.x.toFixed(1)}" cy="${C.y.toFixed(1)}" r="7" fill="#fff" stroke="#241B3A" stroke-width="3"/>`;
+      s+=`<text x="${(A.x+C.x)/2-24}" y="${((A.y+C.y)/2).toFixed(1)}" font-size="14" fill="#241B3A">${p.v}</text>`;
+      s+=`<text x="${(B.x+C.x)/2+10}" y="${((B.y+C.y)/2).toFixed(1)}" font-size="14" fill="#241B3A">${q.v}</text>`;
+      av.className='aviso si';
+      av.textContent=`¡Cierra! ${p.v} + ${q.v} = ${p.v+q.v} y eso es mayor que ${base.v}.`;
+    }else{
+      const y=120;
+      s+=`<line x1="${A.x}" y1="${y}" x2="${(A.x+p.v*esc).toFixed(1)}" y2="${y}" stroke="${COL[p.i]}" stroke-width="9" stroke-linecap="round"/>`;
+      s+=`<line x1="${B.x}" y1="${y}" x2="${(B.x-q.v*esc).toFixed(1)}" y2="${y}" stroke="${COL[q.i]}" stroke-width="9" stroke-linecap="round"/>`;
+      s+=`<line x1="${(A.x+p.v*esc).toFixed(1)}" y1="${y}" x2="${(B.x-q.v*esc).toFixed(1)}" y2="${y}" stroke="#FF4D6D" stroke-width="3" stroke-dasharray="6 6"/>`;
+      s+=`<line x1="${A.x}" y1="${y}" x2="${A.x}" y2="190" stroke="#CFC6E6" stroke-width="2" stroke-dasharray="4 4"/>`;
+      s+=`<line x1="${B.x}" y1="${y}" x2="${B.x}" y2="190" stroke="#CFC6E6" stroke-width="2" stroke-dasharray="4 4"/>`;
+      s+=`<text x="210" y="${y-18}" text-anchor="middle" font-size="14" fill="#FF4D6D">no se tocan</text>`;
+      av.className='aviso no';
+      av.textContent = (p.v+q.v===base.v)
+        ? `Justo no: ${p.v} + ${q.v} = ${base.v}. Se tocan, pero queda una línea recta, no un triángulo.`
+        : `No cierra: ${p.v} + ${q.v} = ${p.v+q.v} y no llega a ${base.v}.`;
+    }
+    svg.innerHTML=s;
+  }
+  S.forEach(s=>s.addEventListener('input',dibujar));
+  dibujar();
+})();
+
+generadores.t3=function(){
+  const t=rnd(1,3);
+  if(t===1){
+    const sirve=Math.random()<0.5;
+    let a,b,c;
+    if(sirve){a=rnd(4,10);b=rnd(4,10);c=rnd(Math.abs(a-b)+1,a+b-1);}
+    else{a=rnd(2,5);b=rnd(2,5);c=rnd(a+b+1,a+b+5);}
+    const L=[a,b,c].sort(()=>Math.random()-0.5);
+    const m=Math.max(...L), otros=L.filter((v,i)=>i!==L.indexOf(m)), suma=L.reduce((x,y)=>x+y,0)-m;
+    return{q:`¿Se puede construir un triángulo con lados de <b>${L[0]} cm</b>, <b>${L[1]} cm</b> y <b>${L[2]} cm</b>?`,
+      fig:figLados(L),tipo:'op',ops:['Sí, se puede','No, no se puede'],res:sirve?0:1,
+      pista:'Sumá los dos lados más chicos y comparalos con el más largo.',
+      explica:`Los dos más chicos suman ${suma} y el más largo mide ${m}. ${suma>m?`${suma} > ${m}`:`${suma} no supera a ${m}`} → ${sirve?'sí se puede':'no se puede'}`};
+  }
+  if(t===2){
+    const a=rnd(5,11),b=rnd(3,a-1);
+    const bueno=rnd(a-b+1,a+b-1);
+    const malos=[a+b+rnd(1,4),Math.max(1,a-b-rnd(1,3)),a+b];
+    const ops=[bueno,...malos.slice(0,3)].sort(()=>Math.random()-0.5);
+    return{q:`Ya tenés dos lados de <b>${a} cm</b> y <b>${b} cm</b>. ¿Cuál de estas medidas <b>sirve</b> como tercer lado?`,
+      tipo:'op',ops:ops.map(v=>v+' cm'),res:ops.indexOf(bueno),
+      pista:`El tercer lado tiene que ser menor que ${a}+${b} y mayor que ${a}−${b}.`,
+      explica:`Tiene que estar entre ${a-b} y ${a+b} (sin incluirlos). ${bueno} cm cumple.`};
+  }
+  const a=rnd(4,11),b=rnd(3,11);
+  return{q:`Dos lados miden <b>${a} cm</b> y <b>${b} cm</b>. El tercer lado tiene que ser <b>menor que</b>…`,
+    fig:figLados([a,b]),tipo:'num',unidad:'cm',res:a+b,
+    pista:'Sumá los dos lados que ya tenés.',
+    explica:`${a} + ${b} = ${a+b} cm (tiene que ser menor que eso)`};
+};
+
+/* ================= TEMA 4: construcción ================= */
+(function(){
+  const svg=$('#w4'),sa=$('#s4a'),sb=$('#s4b'),sc=$('#s4c'),pie=$('#p4');
+  let paso=0, timer=null;
+  const TEXTOS=['Elegí las medidas y apretá "Paso a paso".',
+    'Paso 1 · Con la regla dibujo el lado AB.',
+    'Paso 2 · Abro el compás la medida de AC, pincho en A y trazo el arco.',
+    'Paso 3 · Abro el compás la medida de BC, pincho en B y trazo el arco.',
+    'Paso 4 · Donde se cruzan los arcos está C. Uno A–C y B–C.'];
+
+  function medidas(){return{a:+sa.value,b:+sb.value,c:+sc.value};}
+  function arcoPath(P,r){
+    const s={x:P.x+r*Math.cos(-15*RAD),y:P.y+r*Math.sin(-15*RAD)};
+    const e={x:P.x+r*Math.cos(-165*RAD),y:P.y+r*Math.sin(-165*RAD)};
+    return `M ${s.x.toFixed(1)} ${s.y.toFixed(1)} A ${r.toFixed(1)} ${r.toFixed(1)} 0 0 0 ${e.x.toFixed(1)} ${e.y.toFixed(1)}`;
+  }
+  function compas(P,Q){
+    const ap={x:(P.x+Q.x)/2,y:Math.max(16,Math.min(P.y,Q.y)-46)};
+    return `<g opacity=".9">
+      <line x1="${ap.x.toFixed(1)}" y1="${ap.y.toFixed(1)}" x2="${P.x.toFixed(1)}" y2="${P.y.toFixed(1)}" stroke="#6E6390" stroke-width="4" stroke-linecap="round"/>
+      <line x1="${ap.x.toFixed(1)}" y1="${ap.y.toFixed(1)}" x2="${Q.x.toFixed(1)}" y2="${Q.y.toFixed(1)}" stroke="#6E6390" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="${ap.x.toFixed(1)}" cy="${ap.y.toFixed(1)}" r="6" fill="#6E6390"/>
+    </g>`;
+  }
+  function dibujar(){
+    const {a,b,c}=medidas();
+    $('#o4a').textContent=a+' cm';$('#o4b').textContent=b+' cm';$('#o4c').textContent=c+' cm';
+    const esc=Math.min(34,300/c,175/Math.max(a,b));
+    const A={x:230-c*esc/2,y:225}, B={x:230+c*esc/2,y:225};
+    const posible=(a+b>c)&&(a+c>b)&&(b+c>a);
+    let s='';
+    s+=`<circle cx="${A.x.toFixed(1)}" cy="${A.y}" r="5" fill="#241B3A"/><text x="${(A.x-6).toFixed(1)}" y="248" font-size="14" fill="#241B3A">A</text>`;
+    s+=`<circle cx="${B.x.toFixed(1)}" cy="${B.y}" r="5" fill="#241B3A"/><text x="${(B.x-2).toFixed(1)}" y="248" font-size="14" fill="#241B3A">B</text>`;
+    if(paso>=1){
+      s+=`<line x1="${A.x.toFixed(1)}" y1="${A.y}" x2="${B.x.toFixed(1)}" y2="${B.y}" stroke="#241B3A" stroke-width="5" stroke-linecap="round"/>`;
+      s+=`<text x="230" y="268" text-anchor="middle" font-size="14" fill="#241B3A">${c} cm</text>`;
+    }
+    if(!posible){
+      s+=`<text x="230" y="120" text-anchor="middle" font-size="15" fill="#FF4D6D">Con estas medidas no se puede.</text>`;
+      s+=`<text x="230" y="145" text-anchor="middle" font-size="13" fill="#FF4D6D">Revisá la propiedad triangular (tema 3).</text>`;
+      svg.innerHTML=s;return;
+    }
+    const x=(c*c+b*b-a*a)/(2*c)*esc, y=Math.sqrt(Math.max(0,(b*esc)**2-x*x));
+    const C={x:A.x+x,y:A.y-y};
+    if(paso>=2){
+      s+=`<path d="${arcoPath(A,b*esc)}" fill="none" stroke="#FF2E88" stroke-width="3" stroke-dasharray="5 4"/>`;
+      if(paso===2)s+=compas(A,{x:A.x,y:A.y-b*esc})+`<text x="${(A.x).toFixed(1)}" y="${(A.y-b*esc-16).toFixed(1)}" text-anchor="middle" font-size="13" fill="#FF2E88">${b} cm</text>`;
+    }
+    if(paso>=3){
+      s+=`<path d="${arcoPath(B,a*esc)}" fill="none" stroke="#00B9AC" stroke-width="3" stroke-dasharray="5 4"/>`;
+      if(paso===3)s+=compas(B,{x:B.x,y:B.y-a*esc})+`<text x="${(B.x).toFixed(1)}" y="${(B.y-a*esc-16).toFixed(1)}" text-anchor="middle" font-size="13" fill="#00B9AC">${a} cm</text>`;
+    }
+    if(paso>=4){
+      s+=`<line x1="${A.x.toFixed(1)}" y1="${A.y}" x2="${C.x.toFixed(1)}" y2="${C.y.toFixed(1)}" stroke="#FF2E88" stroke-width="5" stroke-linecap="round"/>`;
+      s+=`<line x1="${B.x.toFixed(1)}" y1="${B.y}" x2="${C.x.toFixed(1)}" y2="${C.y.toFixed(1)}" stroke="#00B9AC" stroke-width="5" stroke-linecap="round"/>`;
+      s+=`<circle cx="${C.x.toFixed(1)}" cy="${C.y.toFixed(1)}" r="6" fill="#fff" stroke="#241B3A" stroke-width="3"/>`;
+      s+=`<text x="${C.x.toFixed(1)}" y="${(C.y-14).toFixed(1)}" text-anchor="middle" font-size="14" fill="#241B3A">C</text>`;
+    }
+    svg.innerHTML=s;
+    pie.textContent=posible?TEXTOS[paso]:'Con esas medidas no se puede construir.';
+  }
+  function play(){
+    clearInterval(timer);paso=0;dibujar();
+    timer=setInterval(()=>{paso++;dibujar();if(paso>=4)clearInterval(timer);},menos?250:1400);
+  }
+  $('#b4play').addEventListener('click',play);
+  $('#b4reset').addEventListener('click',()=>{clearInterval(timer);paso=0;dibujar();});
+  [sa,sb,sc].forEach(s=>s.addEventListener('input',()=>{clearInterval(timer);paso=0;dibujar();}));
+  dibujar();
+})();
+
+generadores.t4=function(){
+  const t=rnd(1,4);
+  if(t===1){
+    const c=rnd(6,9),b=rnd(3,5),a=rnd(3,5);
+    return{q:`Tenés que construir un triángulo de lados <b>${c} cm</b>, <b>${b} cm</b> y <b>${a} cm</b>. ¿Cuál es el <b>primer paso</b>?`,
+      tipo:'op',ops:['Trazar un arco con el compás','Dibujar con la regla el lado más largo','Medir los ángulos con el transportador'],res:1,
+      pista:'Antes de usar el compás necesitás una base donde apoyarte.',
+      explica:`Primero se dibuja el lado más largo (${c} cm) con la regla y se marcan A y B.`};
+  }
+  if(t===2){
+    const c=rnd(7,9);let b,a,g=0;
+    do{b=rnd(3,6);a=rnd(3,6);g++;}while((a===b||a+b<=c)&&g<60);
+    if(a===b||a+b<=c){b=5;a=6;}
+    const ops=[b+' cm',a+' cm',c+' cm'];
+    return{q:`Ya dibujaste <b>AB = ${c} cm</b>. Si <b>AC = ${b} cm</b>, ¿con cuánto abrís el compás para el arco desde <b>A</b>?`,
+      tipo:'op',ops:ops,res:0,
+      pista:'El arco desde A tiene que pasar por C, así que el radio es la distancia de A hasta C.',
+      explica:`Se abre el compás ${b} cm, que es la medida del lado AC.`};
+  }
+  if(t===3){
+    const sirve=Math.random()<0.5;
+    let a,b,c;
+    if(sirve){a=rnd(5,9);b=rnd(4,8);c=rnd(Math.abs(a-b)+1,a+b-1);}
+    else{a=rnd(2,4);b=rnd(2,4);c=a+b+rnd(1,3);}
+    return{q:`¿Se puede <b>construir</b> un triángulo de lados <b>${a} cm</b>, <b>${b} cm</b> y <b>${c} cm</b>?`,
+      fig:figLados([a,b,c]),tipo:'op',ops:['Sí','No, los arcos no se cruzan'],res:sirve?0:1,
+      pista:'Si los dos lados más chicos no llegan a cubrir el más largo, los arcos nunca se cruzan.',
+      explica:sirve?`Los dos más chicos superan al más largo, así que los arcos se cruzan.`:`${Math.min(a,b,c)} + ${[a,b,c].sort((x,y)=>x-y)[1]} no supera a ${Math.max(a,b,c)}: los arcos no llegan a cruzarse.`};
+  }
+  return{q:'Trazaste los dos arcos. ¿Dónde queda el vértice <b>C</b>?',
+    tipo:'op',ops:['En el punto donde se cruzan los dos arcos','En el medio del lado AB','Donde termina el primer arco'],res:0,
+    pista:'C tiene que estar a la distancia correcta de A y también de B, al mismo tiempo.',
+    explica:'C está donde se cortan los arcos: ese punto cumple las dos medidas a la vez.'};
+};
+
+/* ================= TEMA 5: mezcla ================= */
+generadores.t5=function(){
+  const t=rnd(1,4);
+  if(t===1)return generadores.t1();
+  if(t===2)return generadores.t2();
+  if(t===3){
+    const al=rnd(35,80),ext=rnd(al+25,al+95),be=180-ext,ga=ext-al;
+    return{q:`En un triángulo, <b>Â = ${al}°</b> y el <b>ángulo exterior en B</b> mide <b>${ext}°</b>. ¿Cuánto mide <b>Ĉ</b>?`,
+      fig:figExterior(al,be,[al+'°','','?'],ext+'°'),tipo:'num',unidad:'°',res:ga,
+      pista:'El exterior en B es Â + Ĉ.',
+      explica:`${ext}° − ${al}° = ${ga}°`};
+  }
+  const ig=rnd(35,72), dif=180-2*ig, ext=180-dif;
+  return{q:`Un triángulo isósceles tiene dos ángulos de <b>${ig}°</b>. ¿Cuánto mide el <b>ángulo exterior</b> del tercer vértice?`,
+    tipo:'num',unidad:'°',res:ext,
+    pista:'El exterior es la suma de los dos interiores de lejos… que son los dos iguales.',
+    explica:`${ig}° + ${ig}° = ${ext}°`};
+};
+
+/* ================= arranque ================= */
+['t1','t2','t3','t4','t5'].forEach(pintar);
+</script>
+</body>
+</html>
