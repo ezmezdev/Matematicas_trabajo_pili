@@ -189,6 +189,96 @@ svg text{font-family:'Space Mono',monospace;font-weight:700}
 .vertice:focus-visible{outline:none;stroke:var(--violeta);stroke-width:5}
 :focus-visible{outline:3px solid var(--violeta);outline-offset:3px}
 
+/* ---------- PANEL DE RESTAS ---------- */
+.pn-btn{
+  position:fixed;right:16px;bottom:16px;z-index:60;
+  display:flex;align-items:center;gap:8px;cursor:pointer;
+  font-family:'Baloo 2',sans-serif;font-weight:800;font-size:.95rem;
+  background:#4C3BCF;color:#fff;border:none;border-radius:999px;padding:12px 18px;
+  box-shadow:0 6px 0 #35269B,0 12px 26px rgba(60,30,110,.28);
+  transition:transform .12s ease,box-shadow .12s ease;
+}
+.pn-btn:active{transform:translateY(3px);box-shadow:0 3px 0 #35269B}
+.pn-btn i{font-style:normal;font-family:'Space Mono',monospace;background:rgba(255,255,255,.22);border-radius:8px;padding:0 7px}
+.pn{
+  position:fixed;z-index:61;background:#fff;
+  border:2px solid #DED7F6;border-radius:22px;
+  box-shadow:0 20px 48px rgba(60,30,110,.24);
+  display:flex;flex-direction:column;overflow:hidden;
+  right:16px;top:82px;width:348px;max-height:calc(100vh - 112px);
+  transition:transform .26s cubic-bezier(.2,.8,.3,1),opacity .2s ease;
+}
+.pn[hidden]{display:none}
+.pn.cerrando{transform:translateX(120%);opacity:0}
+.pn-cab{
+  display:flex;align-items:center;gap:8px;padding:12px 14px;
+  background:#4C3BCF;color:#fff;
+}
+.pn-cab h3{font-size:1.05rem;font-weight:800;flex:1}
+.pn-x{background:rgba(255,255,255,.18);border:none;color:#fff;width:30px;height:30px;border-radius:9px;font-size:1.1rem;cursor:pointer;line-height:1}
+.pn-cuerpo{overflow-y:auto;padding:14px;display:grid;gap:14px}
+.pn h4{font-family:'Baloo 2',sans-serif;font-size:.78rem;text-transform:uppercase;letter-spacing:.09em;color:#7A6FB0;margin-bottom:6px}
+.pn-reglas{list-style:none;padding:0;margin:0;display:grid;gap:7px;font-size:.9rem;font-weight:600}
+.pn-reglas li{display:flex;gap:9px;align-items:flex-start}
+.pn-reglas > li > b{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:#EDE9FE;color:#4C3BCF;display:grid;place-items:center;font-family:'Space Mono',monospace;font-size:.75rem;margin-top:1px}
+.pn-reglas em{font-style:normal;font-weight:800;color:#4C3BCF}
+
+.pn-entrada{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:'Space Mono',monospace;font-size:1.05rem}
+.pn-entrada input{
+  width:74px;font-family:'Space Mono',monospace;font-size:1.05rem;text-align:center;
+  padding:7px 6px;border-radius:11px;border:2px solid #DED7F6;background:#fff;color:var(--tinta);
+}
+.pn-entrada input:focus{outline:none;border-color:#4C3BCF}
+.pn-chips{display:flex;flex-wrap:wrap;gap:6px}
+.pn-chip{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:.82rem;cursor:pointer;background:#F3F0FF;border:2px solid #DED7F6;color:#4C3BCF;border-radius:999px;padding:5px 12px}
+.pn-chip:hover{background:#E7E1FF}
+
+.pn-cuenta{background:#FBFAFF;border:2px solid #EDE9FE;border-radius:16px;padding:12px 10px 14px;overflow-x:auto}
+.pn-fila{display:flex;justify-content:center;align-items:flex-end}
+.pn-cel{width:36px;flex:0 0 36px;text-align:center;font-family:'Space Mono',monospace;font-size:1.5rem;line-height:1.25;color:var(--tinta);border-radius:8px}
+.pn-signo{width:26px;flex:0 0 26px;text-align:center;font-family:'Space Mono',monospace;font-size:1.4rem;color:#7A6FB0}
+.pn-fila.chico .pn-cel,.pn-fila.chico .pn-signo{font-size:.7rem;line-height:1.5;color:#7A6FB0;letter-spacing:.04em}
+.pn-fila.ayuda{min-height:30px}
+.pn-fila.ayuda .pn-cel{font-size:.95rem;line-height:1.4}
+.pn-cel s{color:#B9B0D8;text-decoration-thickness:2px;font-size:.8rem}
+.pn-cel em{font-style:normal;color:#FF2E88;font-weight:700}
+.pn-cel .presto{color:#00A99D}
+.pn-linea{height:3px;background:var(--tinta);border-radius:3px;margin:5px auto 6px}
+.pn-cel.foco{background:#FFF0F7;box-shadow:0 0 0 2px #FF2E88 inset}
+.pn-cel.tach{color:#B9B0D8;text-decoration:line-through;text-decoration-color:#FF2E88;text-decoration-thickness:2px}
+.pn-cel.res{color:#4C3BCF;font-weight:700}
+.pn-narra{
+  margin-top:10px;background:#EDE9FE;border-radius:12px;padding:9px 11px;
+  font-size:.9rem;font-weight:700;color:#332A66;min-height:56px;
+}
+.pn-narra .cuentita{font-family:'Space Mono',monospace;color:#4C3BCF;display:block;margin-top:3px}
+.pn-nav{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.pn-nav button{
+  flex:1 1 auto;font-family:'Baloo 2',sans-serif;font-weight:700;font-size:.85rem;cursor:pointer;
+  border-radius:11px;padding:8px 10px;border:2px solid #4C3BCF;background:#4C3BCF;color:#fff;
+}
+.pn-nav button.sec{background:#fff;color:#4C3BCF}
+.pn-nav button:disabled{opacity:.4;cursor:default}
+.pn-truco{background:#FFF8E6;border:2px dashed #FFD97A;border-radius:14px;padding:11px 12px;font-size:.9rem;font-weight:600}
+.pn-truco .cuentita{font-family:'Space Mono',monospace;display:block;margin-top:4px;color:#8A6100}
+.pn-probar{background:#F1FCF9;border:2px solid #B5EDE5;border-radius:14px;padding:11px 12px}
+.pn-probar .q{font-family:'Space Mono',monospace;font-size:1.15rem;font-weight:700}
+.pn-probar .fila2{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pn-probar input{width:86px;font-family:'Space Mono',monospace;font-size:1rem;padding:7px;border-radius:10px;border:2px solid #B5EDE5;text-align:center}
+.pn-probar input:focus{outline:none;border-color:#00A99D}
+.pn-probar button{font-family:'Baloo 2',sans-serif;font-weight:700;font-size:.85rem;border:none;border-radius:10px;padding:7px 13px;background:#00A99D;color:#fff;cursor:pointer}
+.pn-probar button.sec{background:#fff;color:#00A99D;border:2px solid #B5EDE5}
+.pn-eco{margin-top:7px;font-weight:800;font-size:.9rem;min-height:20px}
+.pn-eco.bien{color:#087F5B}
+.pn-eco.mal{color:#C1123C}
+
+@media (min-width:1160px){
+  body.pn-on{padding-right:380px}
+}
+@media (max-width:1159px){
+  .pn{left:10px;right:10px;top:auto;bottom:10px;width:auto;max-height:84vh}
+  .pn.cerrando{transform:translateY(120%)}
+}
 @media (max-width:520px){
   .tema{padding:16px}
   .ej{grid-template-columns:28px 1fr;gap:9px;padding:12px}
@@ -412,6 +502,68 @@ svg text{font-family:'Space Mono',monospace;font-weight:700}
 </section>
 
 </main>
+
+<button class="pn-btn" id="pnAbrir" aria-expanded="false" aria-controls="pn"><i>−</i> Cómo restar</button>
+
+<aside class="pn" id="pn" hidden aria-label="Ayuda para restar sin calculadora">
+  <div class="pn-cab">
+    <h3>Restar pidiendo prestado</h3>
+    <button class="pn-x" id="pnCerrar" aria-label="Cerrar">✕</button>
+  </div>
+  <div class="pn-cuerpo">
+
+    <div>
+      <h4>Las 4 reglas</h4>
+      <ul class="pn-reglas">
+        <li><b>1</b><span>Uno abajo del otro: <em>unidades con unidades</em>, decenas con decenas.</span></li>
+        <li><b>2</b><span>Empiezo siempre por la <em>derecha</em>.</span></li>
+        <li><b>3</b><span>Si el de arriba es más chico, le <em>pido 1 prestado</em> al vecino de la izquierda. Ese 1 vale <em>10</em>.</span></li>
+        <li><b>4</b><span>El que prestó queda con <em>1 menos</em>. Si era 0, primero le pide a su vecino y queda en <em>9</em>.</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4>Probá con esta cuenta</h4>
+      <div class="pn-entrada">
+        <input type="number" id="pnM" value="180" min="0" max="9999" aria-label="Número de arriba">
+        <span>−</span>
+        <input type="number" id="pnS" value="53" min="0" max="9999" aria-label="Número de abajo">
+      </div>
+      <div class="pn-chips" style="margin-top:8px">
+        <button class="pn-chip" data-m="180">180 − …</button>
+        <button class="pn-chip" data-m="360">360 − …</button>
+        <button class="pn-chip" data-m="90">90 − …</button>
+        <button class="pn-chip" id="pnAzar">🎲 Otra</button>
+      </div>
+    </div>
+
+    <div class="pn-cuenta">
+      <div id="pnGrilla"></div>
+      <div class="pn-narra" id="pnNarra"></div>
+      <div class="pn-nav">
+        <button class="sec" id="pnAtras">◂ Atrás</button>
+        <button id="pnSig">Siguiente ▸</button>
+        <button class="sec" id="pnTodo">Ver todo</button>
+      </div>
+    </div>
+
+    <div class="pn-truco">
+      <b>Truco sin llevar:</b> restá de a partes.
+      <span class="cuentita" id="pnTruco"></span>
+    </div>
+
+    <div class="pn-probar">
+      <div class="q" id="pnPreg">180 − 47 =</div>
+      <div class="fila2">
+        <input type="number" id="pnResp" placeholder="?" aria-label="Tu resultado">
+        <button id="pnCheck">Comprobar</button>
+        <button class="sec" id="pnOtra">Otra</button>
+      </div>
+      <div class="pn-eco" id="pnEco"></div>
+    </div>
+
+  </div>
+</aside>
 
 <footer>Hecho para estudiar tranquila. Podés repetir los ejercicios todas las veces que quieras 💜</footer>
 
@@ -988,6 +1140,153 @@ generadores.t5=function(){
 };
 
 /* ================= arranque ================= */
+/* ================= PANEL: restar pidiendo prestado ================= */
+(function(){
+  const pn=$('#pn'), abrir=$('#pnAbrir'), cerrar=$('#pnCerrar');
+  const inM=$('#pnM'), inS=$('#pnS');
+  const grilla=$('#pnGrilla'), narra=$('#pnNarra');
+  const bSig=$('#pnSig'), bAtr=$('#pnAtras'), bTodo=$('#pnTodo');
+  let cuenta=null, idx=0;
+
+  /* --- abrir / cerrar --- */
+  function mostrar(v){
+    if(v){pn.hidden=false;pn.classList.remove('cerrando');document.body.classList.add('pn-on');abrir.setAttribute('aria-expanded','true');abrir.style.display='none';}
+    else{pn.classList.add('cerrando');document.body.classList.remove('pn-on');abrir.setAttribute('aria-expanded','false');abrir.style.display='';
+      setTimeout(()=>{if(pn.classList.contains('cerrando'))pn.hidden=true;},260);}
+  }
+  abrir.addEventListener('click',()=>mostrar(true));
+  cerrar.addEventListener('click',()=>mostrar(false));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pn.hidden)mostrar(false);});
+  if(window.innerWidth>=1160)mostrar(true);
+
+  /* --- motor de la resta --- */
+  const NOMBRES=['unidades','decenas','centenas','unidades de mil'];
+  const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+
+  function resolver(M,S){
+    const n=Math.max(String(M).length,String(S).length);
+    const orig=String(M).padStart(n,'0').split('').map(Number);
+    const bot=String(S).padStart(n,'0').split('').map(Number);
+    const top=[...orig], res=new Array(n).fill(null), marca=new Array(n).fill(null);
+    const pasos=[];
+    const foto=(txt,foco)=>pasos.push({txt,foco,top:[...top],res:[...res],marca:marca.map(m=>m?{...m}:null)});
+    const nom=i=>NOMBRES[n-1-i]||'columna';
+
+    for(let i=n-1;i>=0;i--){
+      if(top[i]<bot[i]){
+        foto(`${cap(nom(i))}: <b>${top[i]} − ${bot[i]}</b> no se puede, el de arriba es más chico. Le pido ayuda a las ${nom(i-1)}.`,i);
+        let j=i-1;while(j>=0&&top[j]===0)j--;
+        if(j<0){res[i]=top[i]-bot[i];continue;}
+        const antes=top[j];
+        top[j]-=1;marca[j]={muestra:String(top[j]),tach:true};
+        let txt;
+        if(j===i-1){
+          txt=`El <b>${antes}</b> me presta 1: queda en <b>${top[j]}</b> y acá el <b>${top[i]}</b> se convierte en <b>${top[i]+10}</b>.`;
+        }else{
+          for(let k=j+1;k<i;k++){top[k]=9;marca[k]={muestra:'9',tach:true};}
+          txt=`Al lado hay ceros, así que el pedido sigue de largo: el <b>${antes}</b> presta 1 (queda ${top[j]}), los ceros del medio pasan a valer <b>9</b> y acá el <b>${top[i]}</b> se convierte en <b>${top[i]+10}</b>.`;
+        }
+        top[i]+=10;marca[i]={muestra:String(top[i]),tach:true,recibe:true};
+        foto(txt,i);
+      }
+      res[i]=top[i]-bot[i];
+      foto(`${cap(nom(i))}: <b>${top[i]} − ${bot[i]} = ${res[i]}</b>`,i);
+    }
+    foto(`¡Listo! <b>${M} − ${S} = ${M-S}</b>`,-1);
+    return {n,orig,bot,pasos};
+  }
+
+  function pintar(){
+    if(!cuenta)return;
+    const p=cuenta.pasos[idx], n=cuenta.n;
+    const cel=(cont,cls)=>`<div class="pn-cel ${cls||''}">${cont}</div>`;
+    let etq='<div class="pn-fila chico"><div class="pn-signo"></div>';
+    const SIG=['U','D','C','UM'];
+    for(let i=0;i<n;i++)etq+=`<div class="pn-cel">${SIG[n-1-i]||''}</div>`;
+    etq+='</div>';
+
+    let ayuda='<div class="pn-fila ayuda"><div class="pn-signo"></div>';
+    for(let i=0;i<n;i++){
+      const m=p.marca[i];
+      ayuda+=cel(m?`<em class="${m.recibe?'presto':''}">${m.muestra}</em>`:'',i===p.foco?'foco':'');
+    }
+    ayuda+='</div>';
+
+    let arriba='<div class="pn-fila"><div class="pn-signo"></div>';
+    for(let i=0;i<n;i++){
+      const m=p.marca[i];
+      arriba+=cel(cuenta.orig[i],(m?'tach ':'')+(i===p.foco?'foco':''));
+    }
+    arriba+='</div>';
+
+    let abajo='<div class="pn-fila"><div class="pn-signo">−</div>';
+    for(let i=0;i<n;i++)abajo+=cel(cuenta.bot[i],i===p.foco?'foco':'');
+    abajo+='</div>';
+
+    let resu='<div class="pn-fila"><div class="pn-signo"></div>';
+    for(let i=0;i<n;i++)resu+=cel(p.res[i]===null?'':p.res[i],'res '+(i===p.foco?'foco':''));
+    resu+='</div>';
+
+    const ancho=26+n*36;
+    grilla.innerHTML=etq+ayuda+arriba+abajo+`<div class="pn-linea" style="width:${ancho}px"></div>`+resu;
+    narra.innerHTML=p.txt;
+    bAtr.disabled=idx===0;
+    bSig.disabled=idx>=cuenta.pasos.length-1;
+    bSig.textContent=idx>=cuenta.pasos.length-1?'Terminó ✓':'Siguiente ▸';
+  }
+
+  function truco(M,S){
+    const s=String(S), n=s.length, partes=[];
+    for(let i=0;i<n;i++){const v=+s[i]*Math.pow(10,n-1-i);if(v>0)partes.push(v);}
+    if(!partes.length)return `${M} − 0 = ${M}`;
+    let acc=M, linea=`${M}`;
+    partes.forEach(v=>{acc-=v;linea+=` − ${v} = ${acc}`;});
+    return linea;
+  }
+
+  function cargar(){
+    let M=parseInt(inM.value,10), S=parseInt(inS.value,10);
+    if(!isFinite(M)||!isFinite(S)||M<0||S<0){narra.textContent='Escribí dos números enteros.';grilla.innerHTML='';return;}
+    if(S>M){narra.innerHTML='Arriba va el número <b>más grande</b>. Probá al revés.';grilla.innerHTML='';return;}
+    cuenta=resolver(M,S);idx=0;pintar();
+    $('#pnTruco').textContent=truco(M,S);
+  }
+  inM.addEventListener('input',cargar);
+  inS.addEventListener('input',cargar);
+  bSig.addEventListener('click',()=>{if(cuenta&&idx<cuenta.pasos.length-1){idx++;pintar();}});
+  bAtr.addEventListener('click',()=>{if(cuenta&&idx>0){idx--;pintar();}});
+  bTodo.addEventListener('click',()=>{if(cuenta){idx=cuenta.pasos.length-1;pintar();}});
+  $$('.pn-chip[data-m]').forEach(b=>b.addEventListener('click',()=>{
+    inM.value=b.dataset.m;
+    inS.value=rnd(11,Math.min(+b.dataset.m-10,175));
+    cargar();
+  }));
+  $('#pnAzar').addEventListener('click',()=>{
+    const M=pick([90,180,180,200,360,360]);
+    inM.value=M;inS.value=rnd(12,M-15);cargar();
+  });
+
+  /* --- probá vos --- */
+  let pv={m:180,s:47};
+  function nuevaPregunta(){
+    pv.m=pick([90,180,180,360,360,200]);
+    pv.s=rnd(13,pv.m-15);
+    $('#pnPreg').textContent=`${pv.m} − ${pv.s} =`;
+    $('#pnResp').value='';$('#pnEco').textContent='';$('#pnEco').className='pn-eco';
+  }
+  $('#pnCheck').addEventListener('click',()=>{
+    const v=parseInt($('#pnResp').value,10), eco=$('#pnEco');
+    if(!isFinite(v))return;
+    if(v===pv.m-pv.s){eco.className='pn-eco bien';eco.textContent='¡Perfecto! ✓';}
+    else{eco.className='pn-eco mal';eco.innerHTML='No es. Cargala arriba y mirá los pasos.';
+      inM.value=pv.m;inS.value=pv.s;cargar();}
+  });
+  $('#pnResp').addEventListener('keydown',e=>{if(e.key==='Enter')$('#pnCheck').click();});
+  $('#pnOtra').addEventListener('click',nuevaPregunta);
+  nuevaPregunta();
+  cargar();
+})();
+
 ['t1','t2','t3','t4','t5'].forEach(pintar);
 </script>
 </body>
